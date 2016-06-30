@@ -1,0 +1,44 @@
+#!/usr/bin/php
+
+<?php
+
+/* 
+	Alex Lundgren,
+	alex@endem.su,
+	https://www.endem.su/,
+	Winter 2015 
+*/
+
+// Include Mailer Class
+include __DIR__ . '/PHPMailer/PHPMailerAutoload.php';
+
+// Read input data
+$data = [
+	'recipient' => $argv[1],
+	'subject' => $argv[2],
+	'body' => $argv[3]
+];
+
+$mail = new PHPMailer;
+$mail->isSMTP();
+$mail->SMTPDebug = 2;
+$mail->Debugoutput = 'txt';
+$mail->Host = "Servidor SMTP";
+$mail->Port = porta;
+$mail->SMTPSecure = 'tls';
+$mail->SMTPAuth = true;
+$mail->Username = "seuemail@dominio.com.br";
+$mail->Password = "senhaemail";
+$mail->From = 'seuemail@dominio.com.br';
+$mail->setFrom('seuemail@dominio.com.br', 'Envia Zabbix');
+$mail->addReplyTo('seuemail@dominio.com.br', 'Envia Zabbix');
+$mail->addAddress($data['recipient'], 'Zabbix Mailer');
+$mail->Subject = $data['subject'];
+$mail->Body = $data['body'];
+
+if (!$mail->send()) {
+    echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+    echo "Message sent!";
+}
+
