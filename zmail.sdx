@@ -35,6 +35,7 @@ $mail->addReplyTo('seuemail@dominio.com.br', 'Envia Zabbix');
 $mail->addAddress($data['recipient'], 'Zabbix Mailer');
 $mail->Subject = $data['subject'];
 $mail->Body = $data['body'];
+$mail->IsHTML(true);
 
 if (!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;
